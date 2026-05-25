@@ -41,34 +41,27 @@ class _PhotoPageState extends State<PhotoPage> {
           "Daftar Foto",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-
-        backgroundColor: Colors.green,
+        backgroundColor: const Color.fromARGB(255, 201, 202, 228),
         centerTitle: true,
         elevation: 0,
       ),
 
       body: GridView.builder(
         padding: const EdgeInsets.all(12),
-
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
         ),
-
         itemCount: photos.length,
-
         itemBuilder: (context, index) {
           return Card(
             elevation: 8,
-
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-
               child: Stack(
                 children: [
                   // GAMBAR
@@ -78,7 +71,6 @@ class _PhotoPageState extends State<PhotoPage> {
                       fit: BoxFit.cover,
                     ),
                   ),
-
                   // OVERLAY
                   Positioned.fill(
                     child: Container(
@@ -86,24 +78,20 @@ class _PhotoPageState extends State<PhotoPage> {
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-
                           colors: [
                             Colors.transparent,
-                            Colors.black.withOpacity(0.7),
+                            Colors.black.withValues(alpha: 0.5),
                           ],
                         ),
                       ),
                     ),
                   ),
-
                   // AUTHOR
                   Positioned(
                     left: 10,
                     bottom: 10,
-
                     child: Text(
                       photos[index]['author'],
-
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 15,
@@ -118,37 +106,32 @@ class _PhotoPageState extends State<PhotoPage> {
         },
       ),
 
-      // NAVIGASI BAWAH
+      // NAVIGASI BAWAH (tanpa tombol Postingan)
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-
+        currentIndex: 1, // karena ini halaman Foto
+        selectedItemColor: const Color.fromARGB(255, 187, 107, 15),
+        unselectedItemColor: const Color.fromARGB(255, 133, 121, 12),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: "Postingan",
+            icon: Icon(Icons.home),
+            label: "Home",
           ),
-
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-
-          BottomNavigationBarItem(icon: Icon(Icons.image), label: "Foto"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.image),
+            label: "Foto",
+          ),
         ],
-
         onTap: (index) {
-          // POSTINGAN
-          if (index == 0) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const PostPage()),
-            );
-          }
           // HOME
-          else if (index == 1) {
+          if (index == 0) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const MyApp()),
             );
+          }
+          // FOTO
+          else if (index == 1) {
+            // sudah di halaman Foto, jadi tidak perlu pindah
           }
         },
       ),
